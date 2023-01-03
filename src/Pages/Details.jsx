@@ -1,12 +1,23 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import {
+  ContainerDetails,
+  ContainerCardDetails,
+  ImgLogoPokemon,
+} from "../styles";
+
+import { BiLeftArrowAlt, BiUndo } from "react-icons/bi";
+import pokemonLogo from "../assets/pokemonLogo.png";
+import { Link } from "react-router-dom";
+
 export default function Details() {
   const [urlPokemon, setUrlPokemon] = useState(null);
   let urlPage = window.location.pathname;
   const removeFirstCharacterUrl = urlPage.slice(1);
 
-  //   console.log(removeFirstCharacterUrl);
+  const [skinPokemon, setSkinPokemon] = useState(true);
+  const [faceBackPokemon, setFaceBackPokemon] = useState(true);
 
   useEffect(() => {
     axios.get(removeFirstCharacterUrl).then((response) => {
@@ -17,23 +28,69 @@ export default function Details() {
   if (urlPokemon === null) {
     return;
   }
-  console.log(urlPokemon);
+
+  let skinDefault;
+  let skinShiny;
+
+  if (skinPokemon && faceBackPokemon) {
+    skinDefault = urlPokemon.sprites.front_default;
+  } else if (!skinPokemon && faceBackPokemon) {
+    skinShiny = urlPokemon.sprites.front_shiny;
+  } else if (skinPokemon && !faceBackPokemon) {
+    skinDefault = urlPokemon.sprites.back_default;
+  } else if (!skinPokemon && !faceBackPokemon) {
+    skinShiny = urlPokemon.sprites.back_shiny;
+  }
 
   return (
-    <div>
-      <h1 className="pokemonName">{urlPokemon.name}</h1>
+    <ContainerDetails>
+      <article>
+        <Link to="/">
+          <BiLeftArrowAlt />
+        </Link>
+      </article>
 
-      <img src={urlPokemon.sprites.front_default} alt={urlPokemon.name} />
-      <img src={urlPokemon.sprites.front_shiny} alt={urlPokemon.name} />
-      {/* <img src={urlPokemon.sprites.back_default} alt={urlPokemon.name} /> */}
-      {/* <img src={urlPokemon.sprites.back_shiny} alt={urlPokemon.name} /> */}
-      <div>
-        <span>XP: {urlPokemon.base_experience}</span>
-        <br />
-        <span>altura: {urlPokemon.height}</span>
-        <br />
-        <span>Peso: {urlPokemon.weight}</span>
+      <ImgLogoPokemon
+        src={pokemonLogo}
+        alt="Pokemon Logo"
+        className="imgLogoPageDetails"
+      />
+
+      <div className="buttons">
+        <button onClick={() => setSkinPokemon(true)}>Padrão</button>
+        <button onClick={() => setSkinPokemon(false)}>Shiny</button>
       </div>
-    </div>
+
+      <ContainerCardDetails>
+        <h1 className="pokemonName">{urlPokemon.name}</h1>
+
+        <img
+          src={skinPokemon ? skinDefault : skinShiny}
+          alt={urlPokemon.name}
+        />
+
+        <button
+          className="buttonToSpin"
+          onClick={() => setFaceBackPokemon(!faceBackPokemon)}
+        >
+          <BiUndo />
+        </button>
+
+        <div className="infoPokemon">
+          <p>
+            <span>XP: </span>
+            {urlPokemon.base_experience}
+          </p>
+          <p>
+            <span>Altura: </span>
+            {urlPokemon.height}
+          </p>
+          <p>
+            <span>Peso: </span>
+            {urlPokemon.weight}
+          </p>
+        </div>
+      </ContainerCardDetails>
+    </ContainerDetails>
   );
 }

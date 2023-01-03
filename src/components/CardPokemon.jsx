@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { DivCard } from "../styles";
 
 export default function CardPokemon({ data }) {
   const [urlPokemon, setUrlPokemon] = useState(null);
@@ -12,13 +14,14 @@ export default function CardPokemon({ data }) {
   if (urlPokemon === null) {
     return;
   }
-  console.log(urlPokemon);
+  // console.log(urlPokemon);
 
   return (
-    <div>
-      <h4>{urlPokemon.name}</h4>
+    <DivCard>
+      <h4 className="pokemonName">{urlPokemon.name}</h4>
 
       <img src={urlPokemon.sprites.front_default} alt={urlPokemon.name} />
-    </div>
+      <Link to={data.url}>Detalhes</Link>
+    </DivCard>
   );
 }

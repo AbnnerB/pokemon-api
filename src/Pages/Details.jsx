@@ -28,7 +28,6 @@ export default function Details() {
         setUrlPokemon(response.data);
       })
       .catch((error) => {
-        // console.log(error);
         navigate("/");
       });
   }, []);

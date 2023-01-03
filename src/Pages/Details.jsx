@@ -9,7 +9,7 @@ import {
 
 import { BiLeftArrowAlt, BiUndo } from "react-icons/bi";
 import pokemonLogo from "../assets/pokemonLogo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Details() {
   const [urlPokemon, setUrlPokemon] = useState(null);
@@ -19,10 +19,18 @@ export default function Details() {
   const [skinPokemon, setSkinPokemon] = useState(true);
   const [faceBackPokemon, setFaceBackPokemon] = useState(true);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    axios.get(removeFirstCharacterUrl).then((response) => {
-      setUrlPokemon(response.data);
-    });
+    axios
+      .get(removeFirstCharacterUrl)
+      .then((response) => {
+        setUrlPokemon(response.data);
+      })
+      .catch((error) => {
+        // console.log(error);
+        navigate("/");
+      });
   }, []);
 
   if (urlPokemon === null) {

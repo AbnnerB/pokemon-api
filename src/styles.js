@@ -108,6 +108,10 @@ export const ContainerCardDetails = styled.div`
   border: 10px solid #ffd12c;
   border-radius: 10px;
 
+  h1 {
+    color: #1756a4;
+  }
+
   img {
     background-color: yellow;
     width: 100%;

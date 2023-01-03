@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import CardPokemon from "../components/CardPokemon";
-import { ContainerHome } from "../styles";
+import { ContainerHome, ContainerCards } from "../styles";
 
 export default function Home() {
   const [listPok, setListPok] = useState([]);
@@ -14,13 +14,13 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <ContainerHome>
       <h1>Pokemon api</h1>
-      <ContainerHome>
+      <ContainerCards>
         {listPok.map((item, index) => (
           <CardPokemon key={index} data={item} />
         ))}
-      </ContainerHome>
-    </>
+      </ContainerCards>
+    </ContainerHome>
   );
 }

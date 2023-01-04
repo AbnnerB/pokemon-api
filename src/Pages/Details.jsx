@@ -12,7 +12,7 @@ import pokemonLogo from "../assets/pokemonLogo.png";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Details() {
-  const [urlPokemon, setUrlPokemon] = useState(null);
+  const [listDetailsPokemon, setListDetailsPokemon] = useState(null);
   let urlPage = window.location.pathname;
   const removeFirstCharacterUrl = urlPage.slice(1);
 
@@ -25,14 +25,14 @@ export default function Details() {
     axios
       .get(removeFirstCharacterUrl)
       .then((response) => {
-        setUrlPokemon(response.data);
+        setListDetailsPokemon(response.data);
       })
       .catch((error) => {
         navigate("/");
       });
   }, []);
 
-  if (urlPokemon === null) {
+  if (listDetailsPokemon === null) {
     return;
   }
 
@@ -40,13 +40,13 @@ export default function Details() {
   let skinShiny;
 
   if (skinPokemon && faceBackPokemon) {
-    skinDefault = urlPokemon.sprites.front_default;
+    skinDefault = listDetailsPokemon.sprites.front_default;
   } else if (!skinPokemon && faceBackPokemon) {
-    skinShiny = urlPokemon.sprites.front_shiny;
+    skinShiny = listDetailsPokemon.sprites.front_shiny;
   } else if (skinPokemon && !faceBackPokemon) {
-    skinDefault = urlPokemon.sprites.back_default;
+    skinDefault = listDetailsPokemon.sprites.back_default;
   } else if (!skinPokemon && !faceBackPokemon) {
-    skinShiny = urlPokemon.sprites.back_shiny;
+    skinShiny = listDetailsPokemon.sprites.back_shiny;
   }
 
   return (
@@ -69,11 +69,11 @@ export default function Details() {
       </div>
 
       <ContainerCardDetails>
-        <h1 className="pokemonName">{urlPokemon.name}</h1>
+        <h1 className="pokemonName">{listDetailsPokemon.name}</h1>
 
         <img
           src={skinPokemon ? skinDefault : skinShiny}
-          alt={urlPokemon.name}
+          alt={listDetailsPokemon.name}
         />
 
         <button
@@ -86,15 +86,15 @@ export default function Details() {
         <div className="infoPokemon">
           <p>
             <span>XP: </span>
-            {urlPokemon.base_experience}
+            {listDetailsPokemon.base_experience}
           </p>
           <p>
             <span>Altura: </span>
-            {urlPokemon.height}
+            {listDetailsPokemon.height}
           </p>
           <p>
             <span>Peso: </span>
-            {urlPokemon.weight}
+            {listDetailsPokemon.weight}
           </p>
         </div>
       </ContainerCardDetails>

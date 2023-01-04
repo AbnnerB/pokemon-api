@@ -4,23 +4,23 @@ import { Link } from "react-router-dom";
 import { DivCard } from "../styles";
 
 export default function CardPokemon({ data }) {
-  const [urlPokemon, setUrlPokemon] = useState(null);
+  const [infoPokemon, setInfoPokemon] = useState(null);
 
   useEffect(() => {
     axios.get(data.url).then((response) => {
-      setUrlPokemon(response.data);
+      setInfoPokemon(response.data);
     });
   }, []);
-  if (urlPokemon === null) {
+  if (infoPokemon === null) {
     return;
   }
-  // console.log(urlPokemon);
+  console.log(infoPokemon);
 
   return (
     <DivCard>
-      <h4 className="pokemonName">{urlPokemon.name}</h4>
+      <h4 className="pokemonName">{infoPokemon.name}</h4>
 
-      <img src={urlPokemon.sprites.front_default} alt={urlPokemon.name} />
+      <img src={infoPokemon.sprites.front_default} alt={infoPokemon.name} />
       <Link to={data.url}>Detalhes</Link>
     </DivCard>
   );

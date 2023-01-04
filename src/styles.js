@@ -104,7 +104,6 @@ export const ContainerCardDetails = styled.div`
   width: 100%;
   margin-top: 10px;
   position: relative;
-  /* border: 2px solid black; */
   border: 10px solid #ffd12c;
   border-radius: 10px;
 

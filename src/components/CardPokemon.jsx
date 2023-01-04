@@ -14,7 +14,6 @@ export default function CardPokemon({ data }) {
   if (infoPokemon === null) {
     return;
   }
-  console.log(infoPokemon);
 
   return (
     <DivCard>

@@ -20,7 +20,7 @@ export default function Home() {
       <ImgLogoPokemon src={pokemonLogo} alt="Pokemon Logo" />
 
       <ContainerCards>
-        {listPok.map((item, index) => (
+        {listPok?.map((item, index) => (
           <CardPokemon key={index} data={item} />
         ))}
       </ContainerCards>

@@ -10,10 +10,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route
-            path="https://pokeapi.co/api/v2/pokemon/:id"
-            element={<Details />}
-          />
+          <Route path="/details/:id" element={<Details />} />
           <Route path="*" element={<PageError />} />
         </Routes>
       </BrowserRouter>

@@ -13,23 +13,29 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Details() {
   const [listDetailsPokemon, setListDetailsPokemon] = useState(null);
-  let urlPage = window.location.pathname;
-  const removeFirstCharacterUrl = urlPage.slice(1);
+  const urlPage = window.location.pathname;
 
   const [skinPokemon, setSkinPokemon] = useState(true);
   const [faceBackPokemon, setFaceBackPokemon] = useState(true);
 
+  const pokemonId = urlPage.split("/").pop();
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(removeFirstCharacterUrl)
-      .then((response) => {
+    const fetchPokemonDetails = async () => {
+      try {
+        const response = await axios.get(
+          `https://pokeapi.co/api/v2/pokemon/${pokemonId}/`
+        );
+
         setListDetailsPokemon(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         navigate("/");
-      });
+        console.log(error);
+      }
+    };
+    fetchPokemonDetails();
   }, []);
 
   if (listDetailsPokemon === null) {
